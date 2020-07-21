@@ -1,0 +1,2 @@
+# empleados.java
+permite realizar las siguientes funcionalidades en una lista de empleados:   1. Agregar empleado.  2. Eliminar empleado por Id (El usuario debe ingresar el Id del empleado a ser eliminado; si el Id existe entonces se efectúa la eliminación, en caso contrario debe muestra un mensaje de error).  3. Actualizar empleado. (El usuario debe ingresar el Id del empleado a ser actualizado; si el Id no existe entonces no se efectúa la actualización) 4. Mostrar todos los empleados. (Se imprimen todos los empleados con sus 4 atributos)   5. Salir 
