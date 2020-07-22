@@ -15,6 +15,13 @@ public class Empleado {
 		this.setSalario(salario);
 	}
 
+	@Override
+	public String toString() {
+
+		return "id: " + this.id + ", Nombre: " + this.nombre + ", Apellido: " + this.apellido + ", Salario: "
+				+ this.salario;
+	}
+
 	public Double getSalario() {
 		return salario;
 	}
