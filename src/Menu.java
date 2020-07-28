@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.BinaryOperator;
+import java.util.function.Predicate;
 
 public class Menu {
 
@@ -12,11 +14,18 @@ public class Menu {
 	private Scanner scanner = new Scanner(System.in);
 
 	public Menu() {
-		this.empleados.put(1, new Empleado(1, "a", "a", 900000.00));
-		this.empleados.put(2, new Empleado(2, "b", "b", 200000.00));
-		this.empleados.put(3, new Empleado(3, "c", "c", 300000.00));
-		this.empleados.put(4, new Empleado(4, "d", "d", 710000.00));
-		this.empleados.put(5, new Empleado(5, "e", "e", 800000.00));
+
+		this.empleados.put(1, new Empleado(1, "ana", "anzola", 900000.00));
+		this.empleados.put(2, new Empleado(2, "briant", "bustos", 200000.00));
+		this.empleados.put(3, new Empleado(3, "camila", "Angola", 300000.00));
+		this.empleados.put(4, new Empleado(4, "diana", "deaza", 710000.00));
+		this.empleados.put(5, new Empleado(5, "eugenio", "orejuela", 800000.00));
+		this.empleados.put(6, new Empleado(6, "senon", "anzola", 600000.00));
+		this.empleados.put(7, new Empleado(7, "aldemar", "vargas", 780000.00));
+		this.empleados.put(8, new Empleado(8, "carlos", "amezquita", 3000000.00));
+		this.empleados.put(9, new Empleado(9, "diomedez", "de la paz", 710000.00));
+		this.empleados.put(10, new Empleado(10, "enit", "arioeste", 650000.00));
+
 		this.createMenu();
 	}
 
@@ -30,7 +39,6 @@ public class Menu {
 		this.menu.put(2, "Eliminar empleado por Id");
 		this.menu.put(3, "Actualizar empleado");
 		this.menu.put(4, "Mostrar todos los empleados");
-
 		this.menu.put(5, "Mostrar empleado con mayor salario");
 		this.menu.put(6, "Mostrar empleado con menor salario");
 		this.menu.put(7, "Mostrar todos los empleados ordenados por nombre");
@@ -95,14 +103,51 @@ public class Menu {
 				this.showSalarySum();
 				break;
 
+			case 9:
+				this.countEmpleados();
+				break;
+
+			case 10:
+				getEmpleadosHighestSalary();
+				break;
+
 			default:
 				this.exit();
 				break;
 		}
 	}
 
-	private void showSalarySum() {
+	private void getEmpleadosHighestSalary() {
+		Comparator<Empleado> salaryComparator = Comparator.comparing(Empleado::getSalario);
+		Long limit = new Long(5);
+		List<Empleado> empleados = Filter.sortAndLimit(this.empleados, salaryComparator, limit);
+		System.out.println("******************************************************");
+		System.out.println("* Lista de 5 primeros empleados con el mayor salario *");
+		System.out.println("******************************************************");
+		System.out.println(empleados);
+		System.out.println();
+		this.start();
+	}
 
+	private void countEmpleados() {
+		Predicate<Empleado> firstLetterPredicate = empleado -> empleado.getApellido().toUpperCase().charAt(0) == 'A';
+		Number countEmpleados = Filter.countElements(this.empleados, firstLetterPredicate);
+		System.out.println();
+		System.out
+				.println("El número total de empleados cuyo apellido comienza por la letra ‘A’ o ‘a’ es: " + countEmpleados);
+		System.out.println();
+		this.start();
+	}
+
+	private void showSalarySum() {
+		Predicate<Empleado> salaryPredicate = (Empleado empleado) -> empleado.getSalario() > 700000.00;
+		BinaryOperator<Double> salaryReducer = (last, next) -> last + next;
+		Double salarySum = Filter.propertySummary(this.empleados, salaryPredicate, Empleado::getSalario, new Double(0),
+				salaryReducer);
+		System.out
+				.println("La suma de los salarios de todos los empleados cuyo salario es mayor a 700000 es: " + salarySum);
+		System.out.println();
+		this.start();
 	}
 
 	private void showEmpleadosSortedByName() {
