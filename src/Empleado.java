@@ -18,8 +18,8 @@ public class Empleado {
 	@Override
 	public String toString() {
 
-		return "id: " + this.id + ", Nombre: " + this.nombre + ", Apellido: " + this.apellido + ", Salario: "
-				+ this.salario;
+		return "id: " + this.id + ", Nombre: " + this.nombre + ", Apellido: " + this.apellido + ", Salario: " + this.salario
+				+ "\n";
 	}
 
 	public Double getSalario() {
