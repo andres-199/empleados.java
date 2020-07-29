@@ -118,7 +118,7 @@ public class Menu {
 	}
 
 	private void getEmpleadosHighestSalary() {
-		Comparator<Empleado> salaryComparator = Comparator.comparing(Empleado::getSalario);
+		Comparator<Empleado> salaryComparator = Comparator.comparing(Empleado::getSalario).reversed();
 		Long limit = new Long(5);
 		List<Empleado> empleados = Filter.sortAndLimit(this.empleados, salaryComparator, limit);
 		System.out.println("******************************************************");
